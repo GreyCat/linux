@@ -4,9 +4,11 @@ language: c
 sudo: false
 
 before_script:
-  # Work around that we don't have ARM cross chain set as regular
-  # "gcc"
-  export CC=gcc-4.6
+  # Set up proper symlinks
+  - mkdir -p "$HOME/bin"
+  - ln -s /usr/bin/arm-linux-gnueabihf-gcc-4.6 "$HOME/bin/arm-linux-gnueabihf-gcc"
+
+  - export PATH="$HOME/bin:$PATH"
 
 script:
   make -j deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
