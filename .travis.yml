@@ -1,7 +1,7 @@
 # Version 2
 
 language: c
-sudo: false
+sudo: true
 
 before_script:
   # Set up proper symlinks
