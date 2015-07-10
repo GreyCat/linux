@@ -1,7 +1,7 @@
 # Version 2
 
 language: c
-sudo: true
+sudo: false
 
 before_script:
   # Set up proper symlinks
@@ -11,7 +11,7 @@ before_script:
   - export PATH="$HOME/bin:$PATH"
 
 script:
-  make -j deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
+  make deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
 
 addons:
   apt:
