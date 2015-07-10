@@ -4,7 +4,7 @@ language: c
 sudo: false
 
 script:
-  make-kpkg --jobs 4 --rootcmd fakeroot --arch armhf --cross-compile arm-linux-gnueabihf- --initrd --append-to-version=-wm --revision=$TRAVIS_JOB_NUMBER kernel_image
+  make -j deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
 
 addons:
   apt:
@@ -14,7 +14,5 @@ addons:
       # directly, so resort to an allowed package with version prefix
       #- gcc-arm-linux-gnueabihf
       - gcc-4.6-arm-linux-gnueabihf
-      # for make-kpkg
-      - kernel-package
       # required for kernel-package
       - fakeroot
