@@ -3,6 +3,11 @@
 language: c
 sudo: false
 
+before_script:
+  # Work around that we don't have ARM cross chain set as regular
+  # "gcc"
+  export CC=gcc-4.6
+
 script:
   make -j deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
 
