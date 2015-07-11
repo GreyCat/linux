@@ -17,6 +17,7 @@ addons:
   apt:
     packages:
       - build-essential
+      - bc
       # Unfortunately, "gcc-arm-linux-gnueabihf" is not allowed
       # directly, so resort to an allowed package with version prefix
       #- gcc-arm-linux-gnueabihf
