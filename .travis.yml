@@ -3,6 +3,25 @@
 language: c
 sudo: false
 
+# Identify the build and construct artifact upload path
+before_install:
+  - export WB_PROJECT="watermelon"
+  - export WB_REPO="linux"
+
+  # Default target path: regular commit
+  - export ARTIFACTS_TARGET_PATHS="commits/$WB_PROJECT/$WB_REPO/$TRAVIS_JOB_NUMBER"
+  # Stable target path: tagged commit
+  - if [ -n "$TRAVIS_TAG" ]; then export ARTIFACTS_TARGET_PATHS="stable/$WB_PROJECT/$WB_REPO/$TRAVIS_TAG"; fi
+  # Nightly target path: commit with specific message
+  - 'export TRAVIS_COMMIT_MSG="$(git log --format=%B -n 1)"'
+  - NIGHTLY_BUILD_DATE=$(echo "$TRAVIS_COMMIT_MSG" | sed -ne '/^Nightly build [0-9]*-[0-9]*-[0-9]*$/ { s/^Nightly build //; p }')
+  - if [ -n "$NIGHTLY_BUILD_DATE" ]; then export ARTIFACTS_TARGET_PATHS="nightly/$WB_PROJECT/$WB_REPO/$NIGHTLY_BUILD_DATE"; fi
+
+  # Memorize upload path
+  - 'echo "target_paths=$ARTIFACTS_TARGET_PATHS; tag=$TRAVIS_TAG; commit_msg=$TRAVIS_COMMIT_MSG"'
+  - 'echo "$ARTIFACTS_TARGET_PATHS" >__target_path'
+  - cat __target_path
+
 before_script:
   # Set up proper symlinks
   - mkdir -p "$HOME/bin"
@@ -24,3 +43,12 @@ addons:
       - gcc-4.6-arm-linux-gnueabihf
       # required for kernel-package
       - fakeroot
+  artifacts:
+    paths:
+      - linux-firmware-image-*.deb
+      - linux-headers-*.deb
+      - linux-libc-*.deb
+      - linux-image-*.deb
+    debug: true
+    target-paths: $(cat __target_path)
+    max-size: 262144000
