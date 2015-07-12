@@ -31,9 +31,6 @@ before_script:
 
 script:
   - make -j 4 deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
-  - pwd
-  - ls -al
-  - ls -al ..
 
 addons:
   apt:
@@ -47,7 +44,7 @@ addons:
       # required for kernel-package
       - fakeroot
   artifacts:
-    paths: $(echo *.deb ../*.deb)
+    paths: $(echo ../*.deb | tr ' ' :)
     debug: true
     target-paths: $(cat __target_path)
     max-size: 262144000
