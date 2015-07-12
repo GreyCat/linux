@@ -30,10 +30,10 @@ before_script:
   - export PATH="$HOME/bin:$PATH"
 
 script:
-  make -j 4 deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
-  pwd
-  ls -al
-  ls -al ..
+  - make -j 4 deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
+  - pwd
+  - ls -al
+  - ls -al ..
 
 addons:
   apt:
