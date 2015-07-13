@@ -32,6 +32,13 @@ before_script:
 script:
   - make -j 4 deb-pkg ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- "LOCALVERSION=wb$TRAVIS_JOB_NUMBER"
 
+after_success:
+  # Work around weird Travis issue with eating up "linux-" prefix of
+  # package names, probably due to some "helpful" stripping of repo
+  # name
+  - mkdir -p __release
+  - mv ../*.deb __release
+
 addons:
   apt:
     packages:
@@ -44,7 +51,7 @@ addons:
       # required for kernel-package
       - fakeroot
   artifacts:
-    paths: $(echo ../*.deb | tr ' ' :)
+    paths: $(echo __release/*.deb | tr ' ' :)
     debug: true
     target-paths: $(cat __target_path)
     max-size: 262144000
