@@ -31,7 +31,7 @@ before_script:
 
 script:
   - export CROSS_COMPILE=arm-linux-gnueabihf-
-  - dpkg-buildpackage -j8 -aarmhf -B
+  - dpkg-buildpackage -aarmhf -B
 
 after_success:
   # Work around weird Travis issue with eating up "linux-" prefix of
