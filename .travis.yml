@@ -69,6 +69,8 @@ addons:
       # required to check out Debian's upstream `debian/` directory for
       # kernel packaging.
       - subversion
+      # required for kernel patching
+      - quilt
   artifacts:
     paths: $(echo *.deb | tr ' ' :)
     debug: true
