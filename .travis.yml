@@ -39,6 +39,12 @@ before_script:
   # Set up environment variables required for cross-compilation
   - export CROSS_COMPILE=arm-linux-gnueabihf-
 
+  # Disable building of Debian installer stuff
+  - export DEBIAN_KERNEL_DISABLE_INSTALLER=1
+
+  # Prepare fake changelog entry
+  - ./travis/generate-changelog-entry
+
 script:
   - fakeroot debian/rules source
   - fakeroot make -f debian/rules.gen binary-arch_armhf_none_armmp

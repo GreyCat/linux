@@ -1,0 +1,18 @@
+#!/bin/sh -ef
+
+eval $(sed -ne '1,4 { s/ //g; p }' Makefile)
+
+PACKAGE_VERSION=$VERSION.$PATCHLEVEL.$SUBLEVEL$EXTRAVERSION-wb$TRAVIS_JOB_NUMBER
+echo PACKAGE_VERSION=$PACKAGE_VERSION
+CURRENT_TS=$(date -R)
+
+mv debian/changelog debian/changelog.old
+cat >debian/changelog.new <<__EOF__
+linux ($PACKAGE_VERSION) UNRELEASED; urgency=low
+
+  * Build of Linux kernel $PACKAGE_VERSION
+
+ -- Bot Builder <bot@whiteboxes.ch>  $CURRENT_TS
+
+__EOF__
+cat debian/changelog.new debian/changelog.old >debian/changelog
