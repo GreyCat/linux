@@ -23,6 +23,9 @@ before_install:
   - cat __target_path
 
 before_script:
+  # Set up Python six module, required for kernel build scripts
+  - pip install six
+
   # Set up proper symlinks
   - mkdir -p "$HOME/bin"
   - ln -s /usr/bin/arm-linux-gnueabihf-gcc-4.6 "$HOME/bin/arm-linux-gnueabihf-gcc"
