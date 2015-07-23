@@ -29,8 +29,15 @@ before_script:
 
   - export PATH="$HOME/bin:$PATH"
 
+  # Set up debian/ directory
+  - svn co svn://svn.debian.org/svn/kernel/dists/sid/linux /tmp/linux-debian-pkg
+  - cp -r /tmp/linux-debian-pkg/debian .
+
+  # Set up environment variables required for cross-compilation
+  - export CROSS_COMPILE=arm-linux-gnueabihf-
+
 script:
-  - make -j 4 deb-pkg ARCH=arm KBUILD_DEBARCH=armhf CROSS_COMPILE=arm-linux-gnueabihf- FLAVOUR=armmp "LOCALVERSION=wb$TRAVIS_JOB_NUMBER-armmp" OCALVERSION_HEADERS='' LOCALVERSION_IMAGE='-armmp'
+  - fakeroot make -f debian/rules.gen binary-arch_armhf_none_armmp
 
 after_success:
   # Work around weird Travis issue with eating up "linux-" prefix of
@@ -49,6 +56,9 @@ addons:
       - gcc-4.6-arm-linux-gnueabihf
       # required for kernel-package
       - fakeroot
+      # required to check out Debian's upstream `debian/` directory for
+      # kernel packaging.
+      - subversion
   artifacts:
     paths: $(echo *.deb | tr ' ' :)
     debug: true
