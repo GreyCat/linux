@@ -37,6 +37,7 @@ before_script:
   - export CROSS_COMPILE=arm-linux-gnueabihf-
 
 script:
+  - fakeroot debian/rules source
   - fakeroot make -f debian/rules.gen binary-arch_armhf_none_armmp
 
 after_success:
