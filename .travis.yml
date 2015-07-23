@@ -24,7 +24,7 @@ before_install:
 
 before_script:
   # Set up Python six module, required for kernel build scripts
-  - pip install six
+  - pip install --user six
 
   # Set up proper symlinks
   - mkdir -p "$HOME/bin"
