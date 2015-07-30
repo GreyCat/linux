@@ -91,6 +91,12 @@ if [ "$ARCH" = "um" ] ; then
 	packagename=user-mode-linux-$version
 fi
 
+# Determine if we should install DTBs for given architecture
+echo "=== GCDEBUG: deciding if we should install DTBS; ARCH=$ARCH"
+if [ "$ARCH" = "arm" ]; then
+	dtbs_dir="$objtree/debian/usr/lib/$packagename"
+fi
+
 # Not all arches have the same installed path in debian
 # XXX: have each arch Makefile export a variable of the canonical image install
 # path instead
@@ -168,6 +174,12 @@ fi
 if [ "$ARCH" != "um" ]; then
 	$MAKE headers_check KBUILD_SRC=
 	$MAKE headers_install KBUILD_SRC= INSTALL_HDR_PATH="$libc_headers_dir/usr"
+fi
+
+# Install DTBs, if necessary
+if [ -n "$dtbs_dir" ]; then
+    mkdir -p "$dtbs_dir"
+	$MAKE dtbs_install KBUILD_SRC= INSTALL_DTBS_PATH="$dtbs_dir"
 fi
 
 # Install the maintainer scripts
