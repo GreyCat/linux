@@ -178,7 +178,7 @@ fi
 
 # Install DTBs, if necessary
 if [ -n "$dtbs_dir" ]; then
-    mkdir -p "$dtbs_dir"
+	mkdir -p "$dtbs_dir"
 	$MAKE dtbs_install KBUILD_SRC= INSTALL_DTBS_PATH="$dtbs_dir"
 fi
 
