@@ -92,9 +92,8 @@ if [ "$ARCH" = "um" ] ; then
 fi
 
 # Determine if we should install DTBs for given architecture
-echo "=== GCDEBUG: deciding if we should install DTBS; ARCH=$ARCH"
 if [ "$ARCH" = "arm" ]; then
-	dtbs_dir="$objtree/debian/usr/lib/$packagename"
+	dtbs_dir="$tmpdir/usr/lib/$packagename"
 fi
 
 # Not all arches have the same installed path in debian
