@@ -170,6 +170,26 @@ static struct resource axp22x_pek_resources[] = {
 	},
 };
 
+static struct resource axp20x_ac_power_supply_resources[] = {
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_ACIN_PLUGIN, "ACIN_PLUGIN"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_ACIN_REMOVAL, "ACIN_REMOVAL"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_ACIN_OVER_V, "ACIN_OVER_V"),
+};
+
+static struct resource axp20x_battery_power_supply_resources[] = {
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_BATT_PLUGIN, "BATT_PLUGIN"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_BATT_REMOVAL, "BATT_REMOVAL"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_BATT_TEMP_HIGH, "BATT_HOT"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_BATT_TEMP_LOW, "BATT_COLD"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_BATT_ENT_ACT_MODE, "BATT_ACTIVATE"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_BATT_EXIT_ACT_MODE, "BATT_ACTIVATED"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_CHARG, "BATT_CHARGING"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_CHARG_DONE, "BATT_CHARGED"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_CHARG_I_LOW, "BATT_CHG_CURR_LOW"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_LOW_PWR_LVL1, "BATT_POWER_LOW_WARN"),
+	DEFINE_RES_IRQ_NAMED(AXP20X_IRQ_LOW_PWR_LVL2, "BATT_POWER_LOW_CRIT"),
+};
+
 static struct resource axp288_fuel_gauge_resources[] = {
 	{
 		.start = AXP288_IRQ_QWBTU,
@@ -458,6 +478,19 @@ static struct mfd_cell axp20x_cells[] = {
 		.of_compatible	= "x-powers,axp202-usb-power-supply",
 		.num_resources	= ARRAY_SIZE(axp20x_usb_power_supply_resources),
 		.resources	= axp20x_usb_power_supply_resources,
+	}, {
+		.name		= "axp20x-ac-power-supply",
+		.of_compatible	= "x-powers,axp202-ac-power-supply",
+		.num_resources	= ARRAY_SIZE(axp20x_ac_power_supply_resources),
+		.resources	= axp20x_ac_power_supply_resources,
+	}, {
+		.name		= "axp20x-battery-power-supply",
+		.of_compatible	= "x-powers,axp202-battery-power-supply",
+		.num_resources	= ARRAY_SIZE(axp20x_battery_power_supply_resources),
+		.resources	= axp20x_battery_power_supply_resources,
+	}, {
+		.name		= "axp20x-rtc-battery",
+		.of_compatible	= "x-powers,axp202-rtc-battery",
 	},
 };
 
