@@ -94,4 +94,19 @@
 		compatible = "x-powers,axp202-usb-power-supply";
 		status = "disabled";
 	};
+
+	ac_power_supply: ac_power_supply {
+		compatible = "x-powers,axp202-ac-power-supply";
+		status = "disabled";
+	};
+
+	battery_power_supply: battery_power_supply {
+		compatible = "x-powers,axp202-battery-power-supply";
+		status = "disabled";
+	};
+
+	rtc_battery: rtc_battery {
+		compatible = "x-powers,axp202-rtc-battery";
+		status = "disabled";
+	};
 };

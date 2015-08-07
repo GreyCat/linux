@@ -383,3 +383,26 @@
 	usb2_vbus-supply = <&reg_usb2_vbus>;
 	status = "okay";
 };
+
+&usb_power_supply {
+	status = "okay";
+};
+
+&ac_power_supply {
+	status = "okay";
+};
+
+&battery_power_supply {
+	status = "okay";
+	power-supplies = <&usb_power_supply &ac_power_supply>;
+//	ocv = <0 0 0 0 0 0 0 0 0 0 0 0 0 0 0>;
+	resistance = <100>;
+	capacity = <2000>;
+//	temp_sensor = <20 1000000 4000000>;
+};
+
+&rtc_battery {
+	status = "okay";
+	voltage = <3000000>;
+	current = <200>;
+};
